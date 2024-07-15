@@ -1,0 +1,32 @@
+.GridPage {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.GridPage h2 {
+    color: #FFFFFF;
+}
+
+.GridBody {
+    display: grid;
+    grid-template-columns: repeat(9, 52px);
+    grid-template-rows: repeat(9, 52px);
+    border: 1px solid #FFFFFF;
+    color: #FFFFFF;
+}
+
+.Cell {
+    padding: 0;
+    margin: 0;
+    width: 50px;
+    height: 50px;
+    font-size: 25px;
+    background-color: #000000;
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    text-align: center;
+}

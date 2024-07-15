@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Grid.css';
 
 export default function Grid() {
+    const [showError, setShowError] = useState(false);
+
     const GenerateGrid = () => {
         const tab = [];
 
@@ -18,44 +20,62 @@ export default function Grid() {
             borderBottom: '3px solid #FFFFFF',
         };
 
-        for (let row = 0; row < 9; row++) {
-            for (let col = 0; col < 9; col++) {
+        for (let row = 1; row < 10; row++) {
+            for (let col = 1; col < 10; col++) {
                 const cellStyle = {};
                 
-                // Ajouter les styles de bordure pour les lignes et colonnes centrales
-                if (col === 2 || col === 5) {
+                if (col === 3 || col === 6) {
                     cellStyle.borderRight = CenterRightColStyle.borderRight;
                 }
-                if (col === 3 || col === 6) {
+                if (col === 4 || col === 7) {
                     cellStyle.borderLeft = CenterLeftColStyle.borderLeft;
                 }
-                if (row === 2 || row === 5) {
+                if (row === 3 || row === 6) {
                     cellStyle.borderBottom = CenterBottomRowStyle.borderBottom;
                 }
-                if (row === 3 || row === 6) {
+                if (row === 4 || row === 7) {
                     cellStyle.borderTop = CenterTopRowStyle.borderTop;
                 }
 
-                tab.push(
-                    <span key={`${row}-${col}`} style={cellStyle}>
-                        <input
-                            className="Cell"
-                            placeholder={`${row}-${col}`}
-                        />
-                    </span>
+                tab.push(<input className="Cell"
+                                key={`${row}-${col}`}
+                                data-key={`${row}-${col}`} 
+                                style={cellStyle}
+                                onChange={checkRules}
+                                placeholder={`${row}-${col}`
+                            }/>
                 );
             }
         }
         return tab;
     };
 
+    const checkRules = (event) => {
+        const userInput = event.target.value;
+        const dataKey = event.target.getAttribute('data-key');
+
+        console.log(`Data-key: ${dataKey}, User Input: ${userInput}`); 
+
+        if (isNaN(userInput)) {
+            setShowError(true);
+        } else {
+            setShowError(false);
+        }
+    }
+
     const grid = GenerateGrid();
 
     return (
         <div className="GridPage">
             <h2>Sudoku</h2>
+            <p className='inputError' style={{ display: showError ? 'block' : 'none' }}>
+                Ta saisie est à l'image des Ornithorynques. Incohérent !
+            </p>
             <div className="GridBody">
-                {grid}
+                <div className='GridHimself'>
+                    {grid}
+                </div>
+                <img src="ornithorynque.webp" alt="ornithorynque" className='Ornithorynque' style={{ display: showError ? 'block' : 'none' }}/>
             </div>
         </div>
     );

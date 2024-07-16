@@ -68,8 +68,8 @@
         flex-direction: row;
         .GridHimself {
             display: grid;
-            grid-template-columns: repeat(9, 40px);
-            grid-template-rows: repeat(9, 40px);
+            grid-template-columns: repeat(9, 35px);
+            grid-template-rows: repeat(9, 35px);
         
             border: 1px solid #FFFFFF;
             color: #FFFFFF;

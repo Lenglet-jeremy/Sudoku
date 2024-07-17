@@ -1,9 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Grid.css';
 
 export default function Grid() {
+    // Définir plusieurs grilles de départ
+    const patterns = [
+        {
+            // Pattern 1
+            '1-1': '5', '1-2': '3', '1-5': '7',
+            '2-1': '6', '2-4': '1', '2-5': '9', '2-6': '5',
+            '3-2': '9', '3-3': '8', '3-8': '6',
+            '4-1': '8', '4-5': '6', '4-9': '3',
+            '5-1': '4', '5-4': '8', '5-6': '3', '5-9': '1',
+            '6-1': '7', '6-5': '2', '6-9': '6',
+            '7-2': '6', '7-7': '2', '7-8': '8',
+            '8-4': '4', '8-5': '1', '8-6': '9', '8-9': '5',
+            '9-5': '8', '9-8': '7', '9-9': '9'
+            // Solution 1
+            // 5 3 4 | 6 7 8 | 9 1 2
+            // 6 7 2 | 1 9 5 | 3 4 8
+            // 1 9 8 | 3 4 2 | 5 6 7
+            // ---------------------
+            // 8 5 9 | 7 6 1 | 4 2 3
+            // 4 2 6 | 8 5 3 | 7 9 1
+            // 7 1 3 | 9 2 4 | 8 5 6
+            // ---------------------
+            // 9 6 1 | 5 3 7 | 2 8 4
+            // 2 8 7 | 4 1 9 | 6 3 5
+            // 3 4 5 | 2 8 6 | 1 7 9
+
+
+        },
+        // {
+
+        // },
+        // {
+
+        // }
+    ];
+    
+
     const [cellValues, setCellValues] = useState({});
     const [highlightedCells, setHighlightedCells] = useState({});
+    const [initialValues, setInitialValues] = useState({});
+
+    useEffect(() => {
+        // Sélectionner un pattern aléatoire
+        const randomPattern = patterns[Math.floor(Math.random() * patterns.length)];
+        setCellValues(randomPattern);
+        setInitialValues(randomPattern);
+    }, []);
 
     const GenerateGrid = () => {
         const tab = [];
@@ -21,7 +66,7 @@ export default function Grid() {
             borderBottom: '3px solid #FFFFFF',
         };
 
-        //Génération de toutes les cellules
+        // Génération de toutes les cellules
         for (let row = 1; row < 10; row++) {
             for (let col = 1; col < 10; col++) {
                 const dataKey = `${row}-${col}`;
@@ -36,7 +81,7 @@ export default function Grid() {
                     textAlign: "center"
                 };
 
-                //Délimitation des carré 3x3
+                // Délimitation des carrés 3x3
                 if (col === 3 || col === 6) {
                     cellStyle.borderRight = CenterRightColStyle.borderRight;
                 }
@@ -50,15 +95,19 @@ export default function Grid() {
                     cellStyle.borderTop = CenterTopRowStyle.borderTop;
                 }
 
+                // Vérifiez si la cellule a une valeur initiale et la rendre non modifiable
+                const isInitialValue = initialValues[dataKey] !== undefined;
+
                 tab.push(
                     <input
-                        className={`Cell${row}-${col}`}
                         key={dataKey}
+                        className={`Cell${row}-${col}`}
                         data-key={dataKey}
                         style={cellStyle}
-                        onChange={checkRules}
+                        onChange={isInitialValue ? undefined : checkRules}
                         value={cellValues[dataKey] || ''}
-                        // placeholder={`${row}-${col}`}
+                        readOnly={isInitialValue}
+                        
                     />
                 );
             }
@@ -86,7 +135,7 @@ export default function Grid() {
                 return [topLeftRow, topLeftCol];
             };
 
-            // Verification de tout les cellule pour doublons
+            // Vérification de toutes les cellules pour doublons
             for (let row = 1; row < 10; row++) {
                 for (let col = 1; col < 10; col++) {
                     const key = `${row}-${col}`;
@@ -103,7 +152,7 @@ export default function Grid() {
                             }
                         }
 
-                        // Vérification des colonne avec doublons
+                        // Vérification des colonnes avec doublons
                         for (let row_ = 1; row_ < 10; row_++) {
                             const colKey = `${row_}-${col}`;
                             if (row_ !== row && Values[colKey] === value) {
@@ -113,7 +162,7 @@ export default function Grid() {
                             }
                         }
 
-                        // Vérification des carré 3x3 avec doublons
+                        // Vérification des carrés 3x3 avec doublons
                         const [squareTopLeftRow, squareTopLeftCol] = getSquareTopLeft(row, col);
                         for (let squarerow = squareTopLeftRow; squarerow < squareTopLeftRow + 3; squarerow++) {
                             for (let squarecol = squareTopLeftCol; squarecol < squareTopLeftCol + 3; squarecol++) {
@@ -127,9 +176,6 @@ export default function Grid() {
                                 }
                             }
                         }
-
-
-                        
                     }
                 }
             }

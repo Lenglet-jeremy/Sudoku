@@ -1,0 +1,84 @@
+@media (min-width : 501px) {    
+
+.GridPage {
+    width: 100vw;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .InputError{
+        color: #FF0000;
+        font-size: 20px;
+    }
+}
+
+.GridPage h2 {
+    color: #FFFFFF;
+}
+
+.GridBody{
+    display: flex;
+    flex-direction: row;
+    .GridHimself {
+        display: grid;
+        grid-template-columns: repeat(9, 52px);
+        grid-template-rows: repeat(9, 52px);
+    
+        border: 1px solid #FFFFFF;
+        color: #FFFFFF;
+    }
+
+    .Ornithorynque{
+        display: none;
+        margin-left: 50px;
+    }
+    
+}
+
+}
+
+
+@media (max-width : 500px) {
+    
+
+    .GridPage {
+        width: 100vw;
+        min-height: 100vh;
+    
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    
+        .InputError{
+            color: #FF0000;
+            font-size: 20px;
+        }
+    }
+    
+    .GridPage h2 {
+        color: #FFFFFF;
+    }
+    
+    .GridBody{
+        display: flex;
+        flex-direction: row;
+        .GridHimself {
+            display: grid;
+            grid-template-columns: repeat(9, 35px);
+            grid-template-rows: repeat(9, 35px);
+        
+            border: 1px solid #FFFFFF;
+            color: #FFFFFF;
+        }
+    
+        
+    }
+}
+
+input{
+    color: #666666;
+}

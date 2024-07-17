@@ -9,4 +9,4 @@ Currently, two official plugins are available:
 
 =======================
 
-NETLIFY : https://sudokujl.netlify.app/  
+NETLIFY : https://sudokujl.netlify.app/ 

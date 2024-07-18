@@ -74,8 +74,10 @@
             border: 1px solid #FFFFFF;
             color: #FFFFFF;
         }
-    
         
+    }
+    input{
+        font-size: 10px;
     }
 }
 

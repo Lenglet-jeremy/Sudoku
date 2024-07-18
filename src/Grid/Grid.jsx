@@ -71,13 +71,22 @@ export default function Grid() {
             for (let col = 1; col < 10; col++) {
                 const dataKey = `${row}-${col}`;
                 const isHighlighted = highlightedCells[dataKey] || false;
+                const initialValueStyle = {
+                    backgroundColor: isHighlighted ? "#FF444444" : "#000000",
+                    color: "#AAAAAA",
+                    padding: 0,
+                    margin: 0,
+                    fontSize: "20px",
+                    // border: "1px solid #FFFFFF",
+                    textAlign: "center"
+                }
                 const cellStyle = {
                     backgroundColor: isHighlighted ? "#FF444444" : "#000000",
                     color: "#FFFFFF",
                     padding: 0,
                     margin: 0,
-                    fontSize: "25px",
-                    border: "1px solid #FFFFFF",
+                    fontSize: "20px",
+                    // border: "1px solid #FFFFFF",
                     textAlign: "center"
                 };
 
@@ -103,7 +112,7 @@ export default function Grid() {
                         key={dataKey}
                         className={`Cell${row}-${col}`}
                         data-key={dataKey}
-                        style={cellStyle}
+                        style={ isInitialValue ? initialValueStyle : cellStyle}
                         onChange={isInitialValue ? undefined : checkRules}
                         value={cellValues[dataKey] || ''}
                         readOnly={isInitialValue}

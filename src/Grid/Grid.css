@@ -6,10 +6,14 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        background-color: #333; /* Arrière-plan plus sombre pour le contraste */
+        font-family: 'Arial', sans-serif; /* Changement de la police */
     }
 
     .GridPage h2 {
         color: #FFFFFF;
+        font-size: 2em; /* Taille de police plus grande */
+        margin-bottom: 20px; /* Espace entre le titre et la grille */
     }
 
     .GridBody {
@@ -21,8 +25,11 @@
         display: grid;
         grid-template-columns: repeat(9, 52px);
         grid-template-rows: repeat(9, 52px);
-        border: 1px solid #FFFFFF;
+        border: 2px solid #FFFFFF;
         color: #FFFFFF;
+        gap: 2px; /* Espace entre les cellules */
+        border-radius: 10px; /* Bordures arrondies pour la grille */
+        padding: 10px; /* Espacement autour de la grille */
     }
 
     .GridHimself input {
@@ -33,6 +40,13 @@
         text-align: center;
         margin: 0;
         padding: 0;
+        border-radius: 5px; /* Bordures arrondies pour les cellules */
+        border: 1px solid #ccc;
+        transition: background-color 0.3s ease; /* Transition douce pour les changements de couleur */
+    }
+
+    .GridHimself input:hover {
+        background-color: #555; /* Changement de couleur au survol */
     }
 
     .GridHimself .thick-border-right {
@@ -56,6 +70,21 @@
         flex-direction: row;
         justify-content: space-between;
         width: 470px;
+        margin-bottom: 20px; /* Espace entre les boutons et la grille */
+    }
+
+    .GridControls button {
+        background-color: #444;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .GridControls button:hover {
+        background-color: #666;
     }
 
     input {
@@ -71,10 +100,14 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        background-color: #333;
+        font-family: 'Arial', sans-serif;
     }
 
     .GridPage h2 {
         color: #FFFFFF;
+        font-size: 1.5em;
+        margin-bottom: 20px;
     }
 
     .GridBody {
@@ -86,8 +119,11 @@
         display: grid;
         grid-template-columns: repeat(9, 35px);
         grid-template-rows: repeat(9, 35px);
-        border: 1px solid #FFFFFF;
+        border: 2px solid #FFFFFF;
         color: #FFFFFF;
+        gap: 2px;
+        border-radius: 10px;
+        padding: 10px;
     }
 
     .GridHimself input {
@@ -98,6 +134,13 @@
         text-align: center;
         margin: 0;
         padding: 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        transition: background-color 0.3s ease;
+    }
+
+    .GridHimself input:hover {
+        background-color: #555;
     }
 
     .GridHimself .thick-border-right {
@@ -121,6 +164,21 @@
         flex-direction: row;
         justify-content: space-between;
         width: 317px;
+        margin-bottom: 20px;
+    }
+
+    .GridControls button {
+        background-color: #444;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .GridControls button:hover {
+        background-color: #666;
     }
 
     input {

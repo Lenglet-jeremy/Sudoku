@@ -46,7 +46,6 @@ export default function Grid() {
     const [initialValues, setInitialValues] = useState({});
 
     const loadPattern = (patternIndex) => {
-        window.location.reload()
         const selectedPattern = patterns[patternIndex];
         setCellValues(selectedPattern);
         setInitialValues(selectedPattern);

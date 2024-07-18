@@ -41,6 +41,17 @@
 }
 
 
+.GridControls{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 470px;
+}
+
+input{
+    color: #666666;
+}
+
 @media (max-width : 500px) {
     
 
@@ -76,11 +87,14 @@
         }
         
     }
+    
+    .GridControls{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 317px;
+    }
     input{
         font-size: 10px;
     }
-}
-
-input{
-    color: #666666;
 }

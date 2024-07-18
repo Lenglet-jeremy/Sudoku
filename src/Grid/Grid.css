@@ -1,27 +1,21 @@
-@media (min-width : 501px) {    
-
-.GridPage {
-    width: 100vw;
-    min-height: 100vh;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    .InputError {
-        color: #FF0000;
-        font-size: 20px;
+@media (min-width: 501px) {
+    .GridPage {
+        width: 100vw;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
-}
 
-.GridPage h2 {
-    color: #FFFFFF;
-}
+    .GridPage h2 {
+        color: #FFFFFF;
+    }
 
-.GridBody {
-    display: flex;
-    flex-direction: row;
+    .GridBody {
+        display: flex;
+        flex-direction: row;
+    }
 
     .GridHimself {
         display: grid;
@@ -31,75 +25,62 @@
         color: #FFFFFF;
     }
 
-    .Ornithorynque {
-        display: none;
-        margin-left: 50px;
-    }
-}
-
-.GridHimself input {
-    box-sizing: border-box; /* Ajouté pour inclure les bordures dans les dimensions de l'élément */
-    width: 52px;
-    height: 52px;
-    font-size: 20px;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-}
-
-.GridHimself .thick-border-right {
-    border-right: 3px solid #FFFFFF;
-}
-
-.GridHimself .thick-border-left {
-    border-left: 3px solid #FFFFFF;
-}
-
-.GridHimself .thick-border-bottom {
-    border-bottom: 3px solid #FFFFFF;
-}
-
-.GridHimself .thick-border-top {
-    border-top: 3px solid #FFFFFF;
-}
-
-.GridControls {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 470px;
-}
-
-input {
-    color: #666666;
-}
-
-}
-
-@media (max-width : 500px) {
-
-.GridPage {
-    width: 100vw;
-    min-height: 100vh;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    .InputError {
-        color: #FF0000;
+    .GridHimself input {
+        box-sizing: border-box;
+        width: 52px;
+        height: 52px;
         font-size: 20px;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    .GridHimself .thick-border-right {
+        border-right: 3px solid #FFFFFF;
+    }
+
+    .GridHimself .thick-border-left {
+        border-left: 3px solid #FFFFFF;
+    }
+
+    .GridHimself .thick-border-bottom {
+        border-bottom: 3px solid #FFFFFF;
+    }
+
+    .GridHimself .thick-border-top {
+        border-top: 3px solid #FFFFFF;
+    }
+
+    .GridControls {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 470px;
+    }
+
+    input {
+        color: #666666;
     }
 }
 
-.GridPage h2 {
-    color: #FFFFFF;
-}
+@media (max-width: 500px) {
+    .GridPage {
+        width: 100vw;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 
-.GridBody {
-    display: flex;
-    flex-direction: row;
+    .GridPage h2 {
+        color: #FFFFFF;
+    }
+
+    .GridBody {
+        display: flex;
+        flex-direction: row;
+    }
 
     .GridHimself {
         display: grid;
@@ -108,44 +89,41 @@ input {
         border: 1px solid #FFFFFF;
         color: #FFFFFF;
     }
-}
 
-.GridHimself input {
-    box-sizing: border-box; /* Ajouté pour inclure les bordures dans les dimensions de l'élément */
-    width: 35px;
-    height: 35px;
-    font-size: 10px;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-}
+    .GridHimself input {
+        box-sizing: border-box;
+        width: 35px;
+        height: 35px;
+        font-size: 10px;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
 
-.GridHimself .thick-border-right {
-    border-right: 3px solid #FFFFFF;
-}
+    .GridHimself .thick-border-right {
+        border-right: 3px solid #FFFFFF;
+    }
 
-.GridHimself .thick-border-left {
-    border-left: 3px solid #FFFFFF;
-}
+    .GridHimself .thick-border-left {
+        border-left: 3px solid #FFFFFF;
+    }
 
-.GridHimself .thick-border-bottom {
-    border-bottom: 3px solid #FFFFFF;
-}
+    .GridHimself .thick-border-bottom {
+        border-bottom: 3px solid #FFFFFF;
+    }
 
-.GridHimself .thick-border-top {
-    border-top: 3px solid #FFFFFF;
-}
+    .GridHimself .thick-border-top {
+        border-top: 3px solid #FFFFFF;
+    }
 
-.GridControls {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 317px;
-}
+    .GridControls {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 317px;
+    }
 
-input {
-    font-size: 10px;
+    input {
+        font-size: 10px;
+    }
 }
-
-}
-

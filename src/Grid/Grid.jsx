@@ -71,7 +71,7 @@ export default function Grid() {
                     padding: 0,
                     margin: 0,
                     fontSize: "25px",
-                    border: "1px solid #FFFFFF",
+                    // border: "1px solid #FFFFFF",
                     textAlign: "center",
                     boxSizing: "border-box"
                 };
@@ -178,7 +178,6 @@ export default function Grid() {
             <h2>Sudoku</h2>
             <div className="GridControls">
                 <div className='Left'>
-
                     <button onClick={() => loadPattern(0)}>Facile</button>
                     <button onClick={() => loadPattern(1)}>Moyen</button>
                     <button onClick={() => loadPattern(2)}>Difficile</button>

@@ -49,6 +49,7 @@ export default function Grid() {
         const selectedPattern = patterns[patternIndex];
         setCellValues(selectedPattern);
         setInitialValues(selectedPattern);
+        setHighlightedCells({}); // Reset highlighted cells
     };
 
     useEffect(() => {
@@ -177,6 +178,7 @@ export default function Grid() {
             <h2>Sudoku</h2>
             <div className="GridControls">
                 <div className='Left'>
+
                     <button onClick={() => loadPattern(0)}>Facile</button>
                     <button onClick={() => loadPattern(1)}>Moyen</button>
                     <button onClick={() => loadPattern(2)}>Difficile</button>

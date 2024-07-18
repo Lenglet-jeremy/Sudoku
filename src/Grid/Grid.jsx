@@ -56,6 +56,16 @@ export default function Grid() {
         loadPattern(0); 
     }, []);
 
+    const generateCellStyle = (isHighlighted, isInitialValue) => ({
+        backgroundColor: isHighlighted ? "var(--highlighted-cell-color)" : "#000000",
+        color: isInitialValue ? "var(--initial-value-color)" : "var(--text-color)",
+        padding: 0,
+        margin: 0,
+        fontSize: "25px",
+        textAlign: "center",
+        boxSizing: "border-box"
+    });
+
     const GenerateGrid = () => {
         const tab = [];
 
@@ -65,37 +75,18 @@ export default function Grid() {
                 const isHighlighted = highlightedCells[dataKey] || false;
                 const isInitialValue = initialValues[dataKey] !== undefined;
 
-                const baseCellStyle = {
-                    backgroundColor: isHighlighted ? "#FF444433" : "#000000",
-                    color: isInitialValue ? "#AAAAAA" : "#FFFFFF",
-                    padding: 0,
-                    margin: 0,
-                    fontSize: "25px",
-                    // border: "1px solid #FFFFFF",
-                    textAlign: "center",
-                    boxSizing: "border-box"
-                };
-
                 let cellClassName = '';
-                if (col === 3 || col === 6) {
-                    cellClassName += 'thick-border-right ';
-                }
-                if (col === 4 || col === 7) {
-                    cellClassName += 'thick-border-left ';
-                }
-                if (row === 3 || row === 6) {
-                    cellClassName += 'thick-border-bottom ';
-                }
-                if (row === 4 || row === 7) {
-                    cellClassName += 'thick-border-top ';
-                }
+                if (col === 3 || col === 6) cellClassName += 'thick-border-right ';
+                if (col === 4 || col === 7) cellClassName += 'thick-border-left ';
+                if (row === 3 || row === 6) cellClassName += 'thick-border-bottom ';
+                if (row === 4 || row === 7) cellClassName += 'thick-border-top ';
 
                 tab.push(
                     <input
                         key={dataKey}
                         className={`Cell${row}-${col} ${cellClassName}`}
                         data-key={dataKey}
-                        style={baseCellStyle}
+                        style={generateCellStyle(isHighlighted, isInitialValue)}
                         onChange={isInitialValue ? undefined : checkRules}
                         value={cellValues[dataKey] || ''}
                         readOnly={isInitialValue}
@@ -111,9 +102,7 @@ export default function Grid() {
         const userInput = event.target.value;
         const dataKey = event.target.getAttribute('data-key');
 
-        if (!/^\d?$/.test(userInput)) {
-            return;
-        }
+        if (!/^\d?$/.test(userInput)) return;
 
         setCellValues((prevValues) => {
             const Values = { ...prevValues, [dataKey]: userInput };
@@ -176,19 +165,21 @@ export default function Grid() {
     return (
         <div className="GridPage">
             <h2>Sudoku</h2>
-            <div className="GridControls">
-                <div className='Left'>
-                    <button onClick={() => loadPattern(0)}>Facile</button>
-                    <button onClick={() => loadPattern(1)}>Moyen</button>
-                    <button onClick={() => loadPattern(2)}>Difficile</button>
+            <div className='GlobaleGrid'>
+                <div className="GridControls">
+                    <div className='Left'>
+                        <button onClick={() => loadPattern(0)}>Facile</button>
+                        <button onClick={() => loadPattern(1)}>Moyen</button>
+                        <button onClick={() => loadPattern(2)}>Difficile</button>
+                    </div>
+                    <div className='Right'>
+                        <button onClick={() => window.location.reload()}>Rafraîchir</button>
+                    </div>
                 </div>
-                <div className='Right'>
-                    <button style={{ float: 'right' }} onClick={() => window.location.reload()}>Rafraîchir</button>
-                </div>
-            </div>
-            <div className="GridBody">
-                <div className='GridHimself'>
-                    {grid}
+                <div className="GridBody">
+                    <div className='GridHimself'>
+                        {grid}
+                    </div>
                 </div>
             </div>
         </div>

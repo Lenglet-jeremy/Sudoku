@@ -9,7 +9,7 @@
     justify-content: center;
     align-items: center;
 
-    .InputError{
+    .InputError {
         color: #FF0000;
         font-size: 20px;
     }
@@ -19,82 +19,134 @@
     color: #FFFFFF;
 }
 
-.GridBody{
+.GridBody {
     display: flex;
     flex-direction: row;
+
     .GridHimself {
         display: grid;
         grid-template-columns: repeat(9, 52px);
         grid-template-rows: repeat(9, 52px);
-    
         border: 1px solid #FFFFFF;
         color: #FFFFFF;
     }
 
-    .Ornithorynque{
+    .Ornithorynque {
         display: none;
         margin-left: 50px;
     }
-    
+}
+
+.GridHimself input {
+    box-sizing: border-box; /* Ajouté pour inclure les bordures dans les dimensions de l'élément */
+    width: 52px;
+    height: 52px;
+    font-size: 20px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.GridHimself .thick-border-right {
+    border-right: 3px solid #FFFFFF;
+}
+
+.GridHimself .thick-border-left {
+    border-left: 3px solid #FFFFFF;
+}
+
+.GridHimself .thick-border-bottom {
+    border-bottom: 3px solid #FFFFFF;
+}
+
+.GridHimself .thick-border-top {
+    border-top: 3px solid #FFFFFF;
 }
 
 }
 
-
-.GridControls{
+.GridControls {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 470px;
 }
 
-input{
+input {
     color: #666666;
 }
 
 @media (max-width : 500px) {
-    
 
-    .GridPage {
-        width: 100vw;
-        min-height: 100vh;
-    
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    
-        .InputError{
-            color: #FF0000;
-            font-size: 20px;
-        }
+.GridPage {
+    width: 100vw;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .InputError {
+        color: #FF0000;
+        font-size: 20px;
     }
-    
-    .GridPage h2 {
+}
+
+.GridPage h2 {
+    color: #FFFFFF;
+}
+
+.GridBody {
+    display: flex;
+    flex-direction: row;
+
+    .GridHimself {
+        display: grid;
+        grid-template-columns: repeat(9, 35px);
+        grid-template-rows: repeat(9, 35px);
+        border: 1px solid #FFFFFF;
         color: #FFFFFF;
     }
-    
-    .GridBody{
-        display: flex;
-        flex-direction: row;
-        .GridHimself {
-            display: grid;
-            grid-template-columns: repeat(9, 35px);
-            grid-template-rows: repeat(9, 35px);
-        
-            border: 1px solid #FFFFFF;
-            color: #FFFFFF;
-        }
-        
-    }
-    
-    .GridControls{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        width: 317px;
-    }
-    input{
-        font-size: 10px;
-    }
+}
+
+.GridHimself input {
+    box-sizing: border-box; /* Ajouté pour inclure les bordures dans les dimensions de l'élément */
+    width: 35px;
+    height: 35px;
+    font-size: 10px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.GridHimself .thick-border-right {
+    border-right: 3px solid #FFFFFF;
+}
+
+.GridHimself .thick-border-left {
+    border-left: 3px solid #FFFFFF;
+}
+
+.GridHimself .thick-border-bottom {
+    border-bottom: 3px solid #FFFFFF;
+}
+
+.GridHimself .thick-border-top {
+    border-top: 3px solid #FFFFFF;
+}
+
+}
+
+.GridControls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 317px;
+}
+
+input {
+    font-size: 10px;
+}
+
 }

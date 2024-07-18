@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './Grid.css';
 
 export default function Grid() {
-    // Définir plusieurs grilles de départ
     const patterns = [
         {
             // Pattern 1
@@ -59,70 +58,46 @@ export default function Grid() {
     const GenerateGrid = () => {
         const tab = [];
 
-        const CenterLeftColStyle = {
-            borderLeft: '3px solid #FFFFFF',
-        };
-        const CenterRightColStyle = {
-            borderRight: '3px solid #FFFFFF',
-        };
-        const CenterTopRowStyle = {
-            borderTop: '3px solid #FFFFFF',
-        };
-        const CenterBottomRowStyle = {
-            borderBottom: '3px solid #FFFFFF',
-        };
-
-        // Génération de toutes les cellules
         for (let row = 1; row < 10; row++) {
             for (let col = 1; col < 10; col++) {
                 const dataKey = `${row}-${col}`;
                 const isHighlighted = highlightedCells[dataKey] || false;
-                const initialValueStyle = {
+                const isInitialValue = initialValues[dataKey] !== undefined;
+
+                const baseCellStyle = {
                     backgroundColor: isHighlighted ? "#FF444433" : "#000000",
-                    color: "#AAAAAA",
+                    color: isInitialValue ? "#AAAAAA" : "#FFFFFF",
                     padding: 0,
                     margin: 0,
                     fontSize: "25px",
                     border: "1px solid #FFFFFF",
-                    textAlign: "center"
-                }
-                const cellStyle = {
-                    backgroundColor: isHighlighted ? "#FF444433" : "#000000",
-                    color: "#FFFFFF",
-                    padding: 0,
-                    margin: 0,
-                    fontSize: "25px",
-                    border: "1px solid #FFFFFF",
-                    textAlign: "center"
+                    textAlign: "center",
+                    boxSizing: "border-box" // Ajout pour inclure les bordures dans les dimensions
                 };
 
-                // Délimitation des carrés 3x3
+                let cellClassName = '';
                 if (col === 3 || col === 6) {
-                    cellStyle.borderRight = CenterRightColStyle.borderRight;
+                    cellClassName += 'thick-border-right ';
                 }
                 if (col === 4 || col === 7) {
-                    cellStyle.borderLeft = CenterLeftColStyle.borderLeft;
+                    cellClassName += 'thick-border-left ';
                 }
                 if (row === 3 || row === 6) {
-                    cellStyle.borderBottom = CenterBottomRowStyle.borderBottom;
+                    cellClassName += 'thick-border-bottom ';
                 }
                 if (row === 4 || row === 7) {
-                    cellStyle.borderTop = CenterTopRowStyle.borderTop;
+                    cellClassName += 'thick-border-top ';
                 }
-
-                // Vérifiez si la cellule a une valeur initiale et la rendre non modifiable
-                const isInitialValue = initialValues[dataKey] !== undefined;
 
                 tab.push(
                     <input
                         key={dataKey}
-                        className={`Cell${row}-${col}`}
+                        className={`Cell${row}-${col} ${cellClassName}`}
                         data-key={dataKey}
-                        style={ isInitialValue ? initialValueStyle : cellStyle}
+                        style={baseCellStyle}
                         onChange={isInitialValue ? undefined : checkRules}
                         value={cellValues[dataKey] || ''}
                         readOnly={isInitialValue}
-                        
                     />
                 );
             }
@@ -134,7 +109,6 @@ export default function Grid() {
         const userInput = event.target.value;
         const dataKey = event.target.getAttribute('data-key');
 
-        // Ignorer toutes les valeurs autres qu'un chiffre seul
         if (!/^\d?$/.test(userInput)) {
             return;
         }
@@ -143,21 +117,18 @@ export default function Grid() {
             const Values = { ...prevValues, [dataKey]: userInput };
             const HighlightedCells = {};
 
-            // Fonction qui permet de déterminer la cellule haut-gauche
             const getSquareTopLeft = (row, col) => {
                 const topLeftRow = Math.floor((row - 1) / 3) * 3 + 1;
                 const topLeftCol = Math.floor((col - 1) / 3) * 3 + 1;
                 return [topLeftRow, topLeftCol];
             };
 
-            // Vérification de toutes les cellules pour doublons
             for (let row = 1; row < 10; row++) {
                 for (let col = 1; col < 10; col++) {
                     const key = `${row}-${col}`;
                     const value = Values[key];
 
                     if (value) {
-                        // Vérification des lignes avec doublons
                         for (let col_ = 1; col_ < 10; col_++) {
                             const rowKey = `${row}-${col_}`;
                             if (col_ !== col && Values[rowKey] === value) {
@@ -167,7 +138,6 @@ export default function Grid() {
                             }
                         }
 
-                        // Vérification des colonnes avec doublons
                         for (let row_ = 1; row_ < 10; row_++) {
                             const colKey = `${row_}-${col}`;
                             if (row_ !== row && Values[colKey] === value) {
@@ -177,7 +147,6 @@ export default function Grid() {
                             }
                         }
 
-                        // Vérification des carrés 3x3 avec doublons
                         const [squareTopLeftRow, squareTopLeftCol] = getSquareTopLeft(row, col);
                         for (let squarerow = squareTopLeftRow; squarerow < squareTopLeftRow + 3; squarerow++) {
                             for (let squarecol = squareTopLeftCol; squarecol < squareTopLeftCol + 3; squarecol++) {

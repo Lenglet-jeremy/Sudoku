@@ -72,7 +72,7 @@ export default function Grid() {
                     fontSize: "25px",
                     border: "1px solid #FFFFFF",
                     textAlign: "center",
-                    boxSizing: "border-box" // Ajout pour inclure les bordures dans les dimensions
+                    boxSizing: "border-box"
                 };
 
                 let cellClassName = '';
@@ -98,6 +98,7 @@ export default function Grid() {
                         onChange={isInitialValue ? undefined : checkRules}
                         value={cellValues[dataKey] || ''}
                         readOnly={isInitialValue}
+                        inputmode="numeric"
                     />
                 );
             }

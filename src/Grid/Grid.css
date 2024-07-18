@@ -15,7 +15,7 @@
     .GridPage {
         width: 100vw;
         min-height: 100vh;
-        background-image: url("wood-texture-close.webp");
+        background-image: url("../../public/wood-texture-close.webp");
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -141,7 +141,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        background-image: url("wood-texture-close.webp");
+        background-image: url("../../public/wood-texture-close.webp");
         font-family: 'Arial', sans-serif;
     }
 

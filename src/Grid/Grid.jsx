@@ -176,7 +176,7 @@ export default function Grid() {
                     </div>
                 </div>
                 <div className="GridBody">
-            <h2>Sudoku</h2>
+                    <h2>Sudoku</h2>
                     <div className='GridHimself'>
                         {grid}
                     </div>

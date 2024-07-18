@@ -160,6 +160,7 @@
         font-size: 1.5em;
         margin-bottom: 20px;
         color: #000000;
+        text-shadow: #FFFFFF 2px;
     }
 
     .GridBody {

@@ -164,7 +164,6 @@ export default function Grid() {
 
     return (
         <div className="GridPage">
-            <h2>Sudoku</h2>
             <div className='GlobaleGrid'>
                 <div className="GridControls">
                     <div className='Left'>
@@ -177,6 +176,7 @@ export default function Grid() {
                     </div>
                 </div>
                 <div className="GridBody">
+            <h2>Sudoku</h2>
                     <div className='GridHimself'>
                         {grid}
                     </div>

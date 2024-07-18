@@ -36,7 +36,9 @@
 
     .GridBody {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
     .GridHimself {
@@ -88,6 +90,7 @@
         flex-direction: column;
         width: 100px;
         margin-left: 50px;
+        padding-top: 85px;
     }
 
     .GridControls .Left {
@@ -138,8 +141,17 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        background-color: var(--background-color);
+        background-image: url("wood-texture-close.webp");
         font-family: 'Arial', sans-serif;
+    }
+
+    .Left button{
+        margin-right: 10px;
+    }
+
+    .GlobaleGrid{
+        display: flex;
+        flex-direction: column;
     }
 
     .GridPage h2 {
@@ -150,7 +162,7 @@
 
     .GridBody {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
     }
 
     .GridHimself {
@@ -199,7 +211,7 @@
 
     .GridControls {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         justify-content: space-between;
         width: 355px;
         margin-bottom: 20px;

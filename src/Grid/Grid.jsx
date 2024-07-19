@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Grid.css';
 
-// TODO :
-//Implementer un button de verification au lieu de mettre en surbrillance les lignes colonnes groupes 
-
-export default function Grid() {
-    const patterns = [
+const patterns = [
         {
             // Pattern 1
             '1-3': '5', '1-4': '3', '1-5': '2', '1-8': '6',
@@ -79,113 +75,120 @@ export default function Grid() {
             // 873 915 624
             // 695 742 831
     ];
-
-    const [cellValues, setCellValues] = useState({});
-    const [highlightedCells, setHighlightedCells] = useState({});
-    const [initialValues, setInitialValues] = useState({});
-
-    const loadPattern = (patternIndex) => {
-        const selectedPattern = patterns[patternIndex];
-        setCellValues(selectedPattern);
-        setInitialValues(selectedPattern);
-        setHighlightedCells({}); // Reset highlighted cells
-    };
-
-    useEffect(() => {
-        loadPattern(0); 
-    }, []);
-
-    const generateCellStyle = (isHighlighted, isInitialValue) => ({
-        backgroundColor: isHighlighted ? "var(--highlighted-cell-color)" : "#000000",
-        color: isInitialValue ? "var(--initial-value-color)" : "var(--text-color)",
-        padding: 0,
-        margin: 0,
-        fontSize: "25px",
-        textAlign: "center",
-        boxSizing: "border-box"
-    });
-
-    const GenerateGrid = () => {
-        const tab = [];
-
-        for (let row = 1; row < 10; row++) {
-            for (let col = 1; col < 10; col++) {
-                const dataKey = `${row}-${col}`;
-                const isHighlighted = highlightedCells[dataKey] || false;
-                const isInitialValue = initialValues[dataKey] !== undefined;
-
-                let cellClassName = '';
-                if (col === 3 || col === 6) cellClassName += 'thick-border-right ';
-                if (col === 4 || col === 7) cellClassName += 'thick-border-left ';
-                if (row === 3 || row === 6) cellClassName += 'thick-border-bottom ';
-                if (row === 4 || row === 7) cellClassName += 'thick-border-top ';
-
-                tab.push(
-                    <input
-                        key={dataKey}
-                        className={`Cell${row}-${col} ${cellClassName}`}
-                        data-key={dataKey}
-                        style={generateCellStyle(isHighlighted, isInitialValue)}
-                        onChange={isInitialValue ? undefined : checkRules}
-                        value={cellValues[dataKey] || ''}
-                        readOnly={isInitialValue}
-                        inputmode="numeric"
-                    />
-                );
+    
+    export default function Grid() {
+        const [cellValues, setCellValues] = useState({});
+        const [highlightedCells, setHighlightedCells] = useState({});
+        const [initialValues, setInitialValues] = useState({});
+    
+        const loadPattern = (patternIndex) => {
+            const selectedPattern = patterns[patternIndex];
+            setCellValues(selectedPattern);
+            setInitialValues(selectedPattern);
+            setHighlightedCells({});
+        };
+    
+        const confirmAction = (message, action) => {
+            if (window.confirm(message)) {
+                action();
             }
-        }
-        return tab;
-    };
-
-    const checkRules = (event) => {
-        const userInput = event.target.value;
-        const dataKey = event.target.getAttribute('data-key');
-
-        if (!/^[1-9]?$/.test(userInput)) return;
-
-
-        setCellValues((prevValues) => {
-            const Values = { ...prevValues, [dataKey]: userInput };
-            const HighlightedCells = {};
-
-            const getSquareTopLeft = (row, col) => {
-                const topLeftRow = Math.floor((row - 1) / 3) * 3 + 1;
-                const topLeftCol = Math.floor((col - 1) / 3) * 3 + 1;
-                return [topLeftRow, topLeftCol];
-            };
-
+        };
+    
+        useEffect(() => {
+            loadPattern(0); 
+        }, []);
+    
+        const generateCellStyle = (isHighlighted, isInitialValue) => ({
+            backgroundColor: isHighlighted ? "var(--highlighted-cell-color)" : "#000000",
+            color: isInitialValue ? "var(--initial-value-color)" : "var(--text-color)",
+            padding: 0,
+            margin: 0,
+            fontSize: "25px",
+            textAlign: "center",
+            boxSizing: "border-box"
+        });
+    
+        const GenerateGrid = () => {
+            const tab = [];
+    
             for (let row = 1; row < 10; row++) {
                 for (let col = 1; col < 10; col++) {
-                    const key = `${row}-${col}`;
-                    const value = Values[key];
-
-                    if (value) {
-                        for (let col_ = 1; col_ < 10; col_++) {
-                            const rowKey = `${row}-${col_}`;
-                            if (col_ !== col && Values[rowKey] === value) {
-                                for (let i = 1; i < 10; i++) {
-                                    HighlightedCells[`${row}-${i}`] = true;
+                    const dataKey = `${row}-${col}`;
+                    const isHighlighted = highlightedCells[dataKey] || false;
+                    const isInitialValue = initialValues[dataKey] !== undefined;
+    
+                    let cellClassName = '';
+                    if (col === 3 || col === 6) cellClassName += 'thick-border-right ';
+                    if (col === 4 || col === 7) cellClassName += 'thick-border-left ';
+                    if (row === 3 || row === 6) cellClassName += 'thick-border-bottom ';
+                    if (row === 4 || row === 7) cellClassName += 'thick-border-top ';
+    
+                    tab.push(
+                        <input
+                            key={dataKey}
+                            className={`Cell${row}-${col} ${cellClassName}`}
+                            data-key={dataKey}
+                            style={generateCellStyle(isHighlighted, isInitialValue)}
+                            onChange={isInitialValue ? undefined : checkRules}
+                            value={cellValues[dataKey] || ''}
+                            readOnly={isInitialValue}
+                            inputmode="numeric"
+                        />
+                    );
+                }
+            }
+            return tab;
+        };
+    
+        const checkRules = (event) => {
+            const userInput = event.target.value;
+            const dataKey = event.target.getAttribute('data-key');
+    
+            if (!/^[1-9]?$/.test(userInput)) return;
+    
+            setCellValues((prevValues) => {
+                const Values = { ...prevValues, [dataKey]: userInput };
+                const HighlightedCells = {};
+    
+                const getSquareTopLeft = (row, col) => {
+                    const topLeftRow = Math.floor((row - 1) / 3) * 3 + 1;
+                    const topLeftCol = Math.floor((col - 1) / 3) * 3 + 1;
+                    return [topLeftRow, topLeftCol];
+                };
+    
+                for (let row = 1; row < 10; row++) {
+                    for (let col = 1; col < 10; col++) {
+                        const key = `${row}-${col}`;
+                        const value = Values[key];
+    
+                        if (value) {
+                            for (let col_ = 1; col_ < 10; col_++) {
+                                const rowKey = `${row}-${col_}`;
+                                if (col_ !== col && Values[rowKey] === value) {
+                                    for (let i = 1; i < 10; i++) {
+                                        HighlightedCells[`${row}-${i}`] = true;
+                                    }
                                 }
                             }
-                        }
-
-                        for (let row_ = 1; row_ < 10; row_++) {
-                            const colKey = `${row_}-${col}`;
-                            if (row_ !== row && Values[colKey] === value) {
-                                for (let i = 1; i < 10; i++) {
-                                    HighlightedCells[`${i}-${col}`] = true;
+    
+                            for (let row_ = 1; row_ < 10; row_++) {
+                                const colKey = `${row_}-${col}`;
+                                if (row_ !== row && Values[colKey] === value) {
+                                    for (let i = 1; i < 10; i++) {
+                                        HighlightedCells[`${i}-${col}`] = true;
+                                    }
                                 }
                             }
-                        }
-
-                        const [squareTopLeftRow, squareTopLeftCol] = getSquareTopLeft(row, col);
-                        for (let squarerow = squareTopLeftRow; squarerow < squareTopLeftRow + 3; squarerow++) {
-                            for (let squarecol = squareTopLeftCol; squarecol < squareTopLeftCol + 3; squarecol++) {
-                                const squareKey = `${squarerow}-${squarecol}`;
-                                if ((squarerow !== row || squarecol !== col) && Values[squareKey] === value) {
-                                    for (let squarerow2 = squareTopLeftRow; squarerow2 < squareTopLeftRow + 3; squarerow2++) {
-                                        for (let squarecol2 = squareTopLeftCol; squarecol2 < squareTopLeftCol + 3; squarecol2++) {
-                                            HighlightedCells[`${squarerow2}-${squarecol2}`] = true;
+    
+                            const [squareTopLeftRow, squareTopLeftCol] = getSquareTopLeft(row, col);
+                            for (let squarerow = squareTopLeftRow; squarerow < squareTopLeftRow + 3; squarerow++) {
+                                for (let squarecol = squareTopLeftCol; squarecol < squareTopLeftCol + 3; squarecol++) {
+                                    const squareKey = `${squarerow}-${squarecol}`;
+                                    if ((squarerow !== row || squarecol !== col) && Values[squareKey] === value) {
+                                        for (let squarerow2 = squareTopLeftRow; squarerow2 < squareTopLeftRow + 3; squarerow2++) {
+                                            for (let squarecol2 = squareTopLeftCol; squarecol2 < squareTopLeftCol + 3; squarecol2++) {
+                                                HighlightedCells[`${squarerow2}-${squarecol2}`] = true;
+                                            }
                                         }
                                     }
                                 }
@@ -193,37 +196,37 @@ export default function Grid() {
                         }
                     }
                 }
-            }
-
-            setHighlightedCells(HighlightedCells);
-            return Values;
-        });
-    };
-
-    const grid = GenerateGrid();
-
-    return (
-        <div className="GridPage">
-            <div className='SudokuArea'>
-                <h2>Sudoku</h2>
-                <div className='GlobaleGrid'>
-                    <div className="GridControls">
-                        <div className='Left'>
-                            <button onClick={() => loadPattern(0)}>Facile</button>
-                            <button onClick={() => loadPattern(1)}>Moyen</button>
-                            <button onClick={() => loadPattern(2)}>Difficile</button>
+    
+                setHighlightedCells(HighlightedCells);
+                return Values;
+            });
+        };
+    
+        const grid = GenerateGrid();
+    
+        return (
+            <div className="GridPage">
+                <div className='SudokuArea'>
+                    <h2>Sudoku</h2>
+                    <div className='GlobaleGrid'>
+                        <div className="GridControls">
+                            <div className='Left'>
+                                <button onClick={() => confirmAction("Êtes-vous sûr de vouloir changer de difficulté ?", () => loadPattern(0))}>Facile</button>
+                                <button onClick={() => confirmAction("Êtes-vous sûr de vouloir changer de difficulté ?", () => loadPattern(1))}>Moyen</button>
+                                <button onClick={() => confirmAction("Êtes-vous sûr de vouloir changer de difficulté ?", () => loadPattern(2))}>Difficile</button>
+                            </div>
+                            <div className='Right'>
+                                <button onClick={() => confirmAction("Êtes-vous sûr de vouloir rafraîchir la page ?", () => window.location.reload())}>Rafraîchir</button>
+                            </div>
                         </div>
-                        <div className='Right'>
-                            <button onClick={() => window.location.reload()}>Rafraîchir</button>
-                        </div>
-                    </div>
-                    <div className="GridBody">
-                        <div className='GridHimself'>
-                            {grid}
+                        <div className="GridBody">
+                            <div className='GridHimself'>
+                                {grid}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    );
-}
+        );
+    }
+    

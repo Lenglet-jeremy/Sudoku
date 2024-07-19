@@ -141,7 +141,8 @@ export default function Grid() {
         const userInput = event.target.value;
         const dataKey = event.target.getAttribute('data-key');
 
-        if (!/^\d?$/.test(userInput)) return;
+        if (!/^[1-9]?$/.test(userInput)) return;
+
 
         setCellValues((prevValues) => {
             const Values = { ...prevValues, [dataKey]: userInput };

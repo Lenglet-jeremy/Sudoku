@@ -151,9 +151,17 @@
         margin-right: 10px;
     }
 
+    .SudokuArea{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
     .GlobaleGrid{
         display: flex;
         flex-direction: column;
+        margin-bottom: 20px;
     }
 
     .GridPage h2 {

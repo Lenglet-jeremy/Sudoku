@@ -203,21 +203,23 @@ export default function Grid() {
 
     return (
         <div className="GridPage">
-            <h2>Sudoku</h2>
-            <div className='GlobaleGrid'>
-                <div className="GridControls">
-                    <div className='Left'>
-                        <button onClick={() => loadPattern(0)}>Facile</button>
-                        <button onClick={() => loadPattern(1)}>Moyen</button>
-                        <button onClick={() => loadPattern(2)}>Difficile</button>
+            <div className='SudokuArea'>
+                <h2>Sudoku</h2>
+                <div className='GlobaleGrid'>
+                    <div className="GridControls">
+                        <div className='Left'>
+                            <button onClick={() => loadPattern(0)}>Facile</button>
+                            <button onClick={() => loadPattern(1)}>Moyen</button>
+                            <button onClick={() => loadPattern(2)}>Difficile</button>
+                        </div>
+                        <div className='Right'>
+                            <button onClick={() => window.location.reload()}>Rafraîchir</button>
+                        </div>
                     </div>
-                    <div className='Right'>
-                        <button onClick={() => window.location.reload()}>Rafraîchir</button>
-                    </div>
-                </div>
-                <div className="GridBody">
-                    <div className='GridHimself'>
-                        {grid}
+                    <div className="GridBody">
+                        <div className='GridHimself'>
+                            {grid}
+                        </div>
                     </div>
                 </div>
             </div>

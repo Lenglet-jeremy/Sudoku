@@ -32,6 +32,9 @@
         color: var(--text-color);
         font-size: 2em;
         margin-bottom: 20px;
+        width: 508px;
+        display: flex;
+        justify-content: center;
         color: #000000;
 
     }
@@ -45,6 +48,7 @@
 
     .GridHimself {
         display: grid;
+        background-color: #FFFFFF44;
         grid-template-columns: repeat(9, 52px);
         grid-template-rows: repeat(9, 52px);
         border: 2px solid var(--text-color);
@@ -92,7 +96,6 @@
         flex-direction: column;
         width: 100px;
         margin-left: 50px;
-        padding-top: 85px;
     }
 
     .GridControls .Left {
@@ -182,6 +185,7 @@
         display: grid;
         grid-template-columns: repeat(9, 30px);
         grid-template-rows: repeat(9, 30px);
+        background-color: #FFFFFF44;
         border: 2px solid var(--text-color);
         color: var(--text-color);
         gap: 2px;

@@ -161,7 +161,7 @@
     .GlobaleGrid{
         display: flex;
         flex-direction: column;
-        margin-bottom: 50px;
+        margin-bottom: 70px;
     }
 
     .GridPage h2 {

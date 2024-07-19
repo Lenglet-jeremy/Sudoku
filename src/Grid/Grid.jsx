@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './Grid.css';
 
+// TODO :
+//Implementer un button de verification au lieu de mettre en surbrillance les lignes colonnes groupes 
+
 export default function Grid() {
     const patterns = [
         {
@@ -200,6 +203,7 @@ export default function Grid() {
 
     return (
         <div className="GridPage">
+            <h2>Sudoku</h2>
             <div className='GlobaleGrid'>
                 <div className="GridControls">
                     <div className='Left'>
@@ -212,7 +216,6 @@ export default function Grid() {
                     </div>
                 </div>
                 <div className="GridBody">
-                    <h2>Sudoku</h2>
                     <div className='GridHimself'>
                         {grid}
                     </div>

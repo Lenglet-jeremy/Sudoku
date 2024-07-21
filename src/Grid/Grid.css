@@ -1,17 +1,21 @@
 :root {
     --background-color: #333;
-    --text-color: #FFFFFF;
+    --text-color: #89d4ff;
     --cell-hover-color: #555;
     --cell-border-color: #ccc;
     --highlighted-cell-color: #FF4444;
-    --initial-value-color: #AAAAAA;
+    --initial-value-color: #667a88;
     --input-color: #666666;
     --button-background-color: #444;
     --button-hover-background-color: #666;
     --button-text-color: #fff;
 }
 
+
 @media (min-width: 701px) {
+    .Timer700{
+        display: none;
+    }
     .GridPage {
         width: 100vw;
         min-height: 100vh;
@@ -48,7 +52,7 @@
 
     .GridHimself {
         display: grid;
-        background-color: #FFFFFF44;
+        background-color: #7bdaff44;
         grid-template-columns: repeat(9, 52px);
         grid-template-rows: repeat(9, 52px);
         border: 2px solid var(--text-color);
@@ -96,6 +100,7 @@
         flex-direction: column;
         width: 100px;
         margin-left: 50px;
+        position: relative; /* Added */
     }
 
     .GridControls .Left {
@@ -116,7 +121,15 @@
         }
     }
 
-
+    .GridControls .Timer701 {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        font-size: 1.2em;
+        color: var(--text-color);
+        padding: 10px;
+        color: #000000;
+    }
 
     .GridControls button {
         background-color: var(--button-background-color);
@@ -133,12 +146,18 @@
     }
 }
 
-
-
-
-
-
 @media (max-width: 700px) {
+    .Timer701{
+        display: none;
+    }
+
+    .Title{
+        width: 309px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
     .GridPage {
         width: 100vw;
         min-height: 100vh;
@@ -234,6 +253,13 @@
         width: 309px;
         height: 26px;
         margin-bottom: 10px;
+    }
+
+    .GridControls .Timer701 {
+        font-size: 1.2em;
+        color: var(--text-color);
+        margin-top: 10px;
+        color: #000000;
     }
 
     .GridControls button {

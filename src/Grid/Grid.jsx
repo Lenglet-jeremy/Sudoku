@@ -210,6 +210,8 @@ export default function Grid() {
                 }
             }
 
+            setHighlightedCells(HighlightedCells);
+
 
             // Vérifier si le Sudoku est terminé
             if (!isCompleted && isSudokuCompleted(Values)) {
@@ -222,8 +224,6 @@ export default function Grid() {
                     return prevCompleted;
                 });
             }
-            setHighlightedCells(HighlightedCells);
-
             return Values;
         });
     };

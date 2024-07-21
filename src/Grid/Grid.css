@@ -19,7 +19,7 @@
     .GridPage {
         width: 100vw;
         min-height: 100vh;
-        background-image: url("../../public/wood-texture-close.webp");
+        background-image: url("../../public/wallpaper.webp");
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -39,7 +39,7 @@
         width: 508px;
         display: flex;
         justify-content: center;
-        color: #000000;
+        color: #ffffff;
 
     }
 
@@ -100,7 +100,7 @@
         flex-direction: column;
         width: 100px;
         margin-left: 50px;
-        position: relative; /* Added */
+        position: relative; 
     }
 
     .GridControls .Left {
@@ -128,7 +128,7 @@
         font-size: 1.2em;
         color: var(--text-color);
         padding: 10px;
-        color: #000000;
+        color: #ffffff;
     }
 
     .GridControls button {
@@ -150,6 +150,9 @@
     .Timer701{
         display: none;
     }
+    .Timer700{
+        color: #FFFFFF;
+    }
 
     .Title{
         width: 309px;
@@ -165,7 +168,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        background-image: url("../../public/wood-texture-close.webp");
+        background-image: url("../../public/wallpaper.webp");
         font-family: 'Arial', sans-serif;
     }
 
@@ -191,7 +194,7 @@
         font-size: 1.5em;
         margin-bottom: 5px;
         margin-top: 5px;
-        color: #000000;
+        color: #ffffff;
     }
 
     .GridBody {
@@ -259,7 +262,7 @@
         font-size: 1.2em;
         color: var(--text-color);
         margin-top: 10px;
-        color: #000000;
+        color: #ffffff;
     }
 
     .GridControls button {

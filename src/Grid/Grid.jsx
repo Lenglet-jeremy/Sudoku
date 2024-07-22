@@ -108,8 +108,8 @@ export default function Grid() {
     };
 
     const generateCellStyle = (isHighlighted, isInitialValue) => ({
-        backgroundColor: isHighlighted ? "var(--highlighted-cell-color)" : "#000000",
         color: isInitialValue ? "var(--initial-value-color)" : "var(--text-color)",
+        color: isHighlighted ? "var(--highlighted-cell-color)" : "#000000",
         padding: 0,
         margin: 0,
         fontSize: "25px",

@@ -108,8 +108,8 @@ export default function Grid() {
     };
 
     const generateCellStyle = (isHighlighted, isInitialValue) => ({
+        backgroundColor: isHighlighted ? "var(--highlighted-cell-color)" : "#000000",
         color: isInitialValue ? "var(--initial-value-color)" : "var(--text-color)",
-        color: isHighlighted ? "var(--highlighted-cell-color)" : "#000000",
         padding: 0,
         margin: 0,
         fontSize: "25px",
@@ -152,67 +152,53 @@ export default function Grid() {
     const checkRules = (event) => {
         const userInput = event.target.value;
         const dataKey = event.target.getAttribute('data-key');
-
+    
         // Only allow digits 1-9
         if (!/^[1-9]?$/.test(userInput)) return;
-
+    
         setCellValues((prevValues) => {
             const Values = { ...prevValues, [dataKey]: userInput };
             const HighlightedCells = {};
-
+    
             const getSquareTopLeft = (row, col) => {
                 const topLeftRow = Math.floor((row - 1) / 3) * 3 + 1;
                 const topLeftCol = Math.floor((col - 1) / 3) * 3 + 1;
                 return [topLeftRow, topLeftCol];
             };
-
-            for (let row = 1; row < 10; row++) {
+    
+            if (userInput) {
+                const [inputRow, inputCol] = dataKey.split('-').map(Number);
+    
+                // Check row
                 for (let col = 1; col < 10; col++) {
-                    const key = `${row}-${col}`;
-                    const value = Values[key];
-
-                    if (value) {
-                        // Check rows
-                        for (let col_ = 1; col_ < 10; col_++) {
-                            const rowKey = `${row}-${col_}`;
-                            if (col_ !== col && Values[rowKey] === value) {
-                                for (let i = 1; i < 10; i++) {
-                                    HighlightedCells[`${row}-${i}`] = true;
-                                }
-                            }
-                        }
-
-                        // Check columns
-                        for (let row_ = 1; row_ < 10; row_++) {
-                            const colKey = `${row_}-${col}`;
-                            if (row_ !== row && Values[colKey] === value) {
-                                for (let i = 1; i < 10; i++) {
-                                    HighlightedCells[`${i}-${col}`] = true;
-                                }
-                            }
-                        }
-
-                        // Check squares
-                        const [squareTopLeftRow, squareTopLeftCol] = getSquareTopLeft(row, col);
-                        for (let squarerow = squareTopLeftRow; squarerow < squareTopLeftRow + 3; squarerow++) {
-                            for (let squarecol = squareTopLeftCol; squarecol < squareTopLeftCol + 3; squarecol++) {
-                                const squareKey = `${squarerow}-${squarecol}`;
-                                if ((squarerow !== row || squarecol !== col) && Values[squareKey] === value) {
-                                    for (let squarerow2 = squareTopLeftRow; squarerow2 < squareTopLeftRow + 3; squarerow2++) {
-                                        for (let squarecol2 = squareTopLeftCol; squarecol2 < squareTopLeftCol + 3; squarecol2++) {
-                                            HighlightedCells[`${squarerow2}-${squarecol2}`] = true;
-                                        }
-                                    }
-                                }
-                            }
+                    const rowKey = `${inputRow}-${col}`;
+                    if (Values[rowKey] === userInput && col !== inputCol) {
+                        HighlightedCells[rowKey] = true;
+                    }
+                }
+    
+                // Check column
+                for (let row = 1; row < 10; row++) {
+                    const colKey = `${row}-${inputCol}`;
+                    if (Values[colKey] === userInput && row !== inputRow) {
+                        HighlightedCells[colKey] = true;
+                    }
+                }
+    
+                // Check square
+                const [squareTopLeftRow, squareTopLeftCol] = getSquareTopLeft(inputRow, inputCol);
+                for (let row = squareTopLeftRow; row < squareTopLeftRow + 3; row++) {
+                    for (let col = squareTopLeftCol; col < squareTopLeftCol + 3; col++) {
+                        const squareKey = `${row}-${col}`;
+                        if (Values[squareKey] === userInput && (row !== inputRow || col !== inputCol)) {
+                            HighlightedCells[squareKey] = true;
                         }
                     }
                 }
             }
-
+    
             setHighlightedCells(HighlightedCells);
-
-
+    
             // Vérifier si le Sudoku est terminé
             if (!isCompleted && isSudokuCompleted(Values)) {
                 setIsCompleted((prevCompleted) => {
@@ -227,6 +213,7 @@ export default function Grid() {
             return Values;
         });
     };
+    
 
     const isSudokuCompleted = (values) => {
         // Vérifiez si toutes les cellules sont remplies

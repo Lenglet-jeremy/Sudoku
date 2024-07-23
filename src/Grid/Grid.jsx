@@ -77,11 +77,13 @@ const patterns = [
 ];
 
 export default function Grid() {
+
+    // Initialisation des variable
     const [cellValues, setCellValues] = useState({});
     const [highlightedCells, setHighlightedCells] = useState({});
     const [initialValues, setInitialValues] = useState({});
     const [time, setTime] = useState(0);
-    const [isCompleted, setIsCompleted] = useState(false); // Nouvelle variable d'état pour vérifier si le Sudoku est complété
+    const [isCompleted, setIsCompleted] = useState(false);
 
     useEffect(() => {
         loadPattern(0);
@@ -93,20 +95,23 @@ export default function Grid() {
         return () => clearInterval(timerInterval);
     }, []);
 
+    // Charge le pattern selectionné 
     const loadPattern = (patternIndex) => {
         const selectedPattern = patterns[patternIndex];
         setCellValues(selectedPattern);
         setInitialValues(selectedPattern);
         setHighlightedCells({});
-        setIsCompleted(false); // Réinitialiser l'état de complétion lorsque vous chargez un nouveau pattern
+        setIsCompleted(false); 
     };
 
+    // Demande de confirmation à l'utilisateur lors de changement de difficulter ou de refresh
     const confirmAction = (message, action) => {
         if (window.confirm(message)) {
             action();
         }
     };
 
+    //Stylise les cellules
     const generateCellStyle = (isHighlighted, isInitialValue) => ({
         backgroundColor: isHighlighted ? "var(--highlighted-cell-color)" : "#000000",
         color: isInitialValue ? "var(--initial-value-color)" : "var(--text-color)",
@@ -117,21 +122,27 @@ export default function Grid() {
         boxSizing: "border-box"
     });
 
+    //Génére la Grille
     const GenerateGrid = () => {
         const tab = [];
 
+        // Génére toutes les cellules
         for (let row = 1; row < 10; row++) {
             for (let col = 1; col < 10; col++) {
+
+                // Initialisation de variables
                 const dataKey = `${row}-${col}`;
                 const isHighlighted = highlightedCells[dataKey] || false;
                 const isInitialValue = initialValues[dataKey] !== undefined;
 
+                // Génére les bordures de zones 3x3
                 let cellClassName = '';
                 if (col === 3 || col === 6) cellClassName += 'thick-border-right ';
                 if (col === 4 || col === 7) cellClassName += 'thick-border-left ';
                 if (row === 3 || row === 6) cellClassName += 'thick-border-bottom ';
                 if (row === 4 || row === 7) cellClassName += 'thick-border-top ';
 
+                // Insére les cellules dans un tableau
                 tab.push(
                     <input
                         key={dataKey}
@@ -149,13 +160,15 @@ export default function Grid() {
         return tab;
     };
 
+    //Verifie les regles
     const checkRules = (event) => {
         const userInput = event.target.value;
         const dataKey = event.target.getAttribute('data-key');
     
-        // Only allow digits 1-9
+        // Permet seulement les chiffres de 1 à 9
         if (!/^[1-9]?$/.test(userInput)) return;
     
+        // Etablis les valeurs des cellules, valeurs initiales et saisissable par l'utilisateur
         setCellValues((prevValues) => {
             const Values = { ...prevValues, [dataKey]: userInput };
             const HighlightedCells = {};
@@ -169,7 +182,7 @@ export default function Grid() {
             if (userInput) {
                 const [inputRow, inputCol] = dataKey.split('-').map(Number);
     
-                // Check row
+                // Verifie les doublons dans les lignes
                 for (let col = 1; col < 10; col++) {
                     const rowKey = `${inputRow}-${col}`;
                     if (Values[rowKey] === userInput && col !== inputCol) {
@@ -177,7 +190,7 @@ export default function Grid() {
                     }
                 }
     
-                // Check column
+                // Vérifie les doublons dans les colonnes
                 for (let row = 1; row < 10; row++) {
                     const colKey = `${row}-${inputCol}`;
                     if (Values[colKey] === userInput && row !== inputRow) {
@@ -185,7 +198,7 @@ export default function Grid() {
                     }
                 }
     
-                // Check square
+                // Vérifie les doublons dans les zones de 3x3
                 const [squareTopLeftRow, squareTopLeftCol] = getSquareTopLeft(inputRow, inputCol);
                 for (let row = squareTopLeftRow; row < squareTopLeftRow + 3; row++) {
                     for (let col = squareTopLeftCol; col < squareTopLeftCol + 3; col++) {

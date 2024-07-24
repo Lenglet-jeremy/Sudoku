@@ -19,7 +19,6 @@
     .GridPage {
         width: 100vw;
         min-height: 100vh;
-        background-image: url("../../public/wallpaper.webp");
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -168,7 +167,6 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        background-image: url("../../public/wallpaper.webp");
         font-family: 'Arial', sans-serif;
     }
 

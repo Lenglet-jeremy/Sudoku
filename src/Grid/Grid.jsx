@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Grid.css';
 
 const patterns = [
@@ -118,30 +118,59 @@ export default function Grid() {
     const [initialValues, setInitialValues] = useState({});
     const [time, setTime] = useState(0);
     const [isCompleted, setIsCompleted] = useState(false);
+    const timerRef = useRef(null);  // Utiliser useRef pour stocker l'intervalle du timer
+    const [patternIndex, setPatternIndex] = useState(0);
 
     useEffect(() => {
-        loadPattern(0);
+        loadPattern(patternIndex);
 
-        const timerInterval = setInterval(() => {
+        startTimer();
+
+        return () => stopTimer(); // Arrêter le timer lors du démontage du composant
+    }, [patternIndex]);
+
+    useEffect(() => {
+        if (isCompleted) {
+            stopTimer();
+        }
+    }, [isCompleted]);
+
+    const startTimer = () => {
+        if (timerRef.current) return;  // Éviter de démarrer un nouveau timer si un timer existe déjà
+        timerRef.current = setInterval(() => {
             setTime((prevTime) => prevTime + 1);
         }, 1000);
+    };
 
-        return () => clearInterval(timerInterval);
-    }, []);
+    const stopTimer = () => {
+        if (timerRef.current) {
+            clearInterval(timerRef.current);
+            timerRef.current = null;
+        }
+    };
 
-    const loadPattern = (patternIndex) => {
-        const selectedPattern = patterns[patternIndex];
+    const resetTimer = () => {
+        stopTimer();
+        setTime(0);
+        startTimer();
+    };
+
+    const loadPattern = (index) => {
+        const selectedPattern = patterns[index];
+        setPatternIndex(index);
         setCellValues(selectedPattern);
         setInitialValues(selectedPattern);
         setHighlightedCells({});
-        setIsCompleted(false); 
+        setIsCompleted(false);
+        resetTimer();  // Réinitialiser le timer lorsque le motif change
     };
 
-    const loadSolution = (patternIndex) => {
-        const selectedSolution = solutions[patternIndex];
+    const loadSolution = (index) => {
+        const selectedSolution = solutions[index];
         setCellValues(selectedSolution);
         setHighlightedCells({});
         setIsCompleted(true);
+        stopTimer();  // Arrêter le timer lorsqu'on affiche la solution
     };
 
     const confirmAction = (message, action) => {
@@ -279,7 +308,7 @@ export default function Grid() {
                             <button onClick={() => confirmAction("Êtes-vous sûr de vouloir changer de difficulté ?", () => loadPattern(2))}>Difficile</button>
                         </div>
                         <div className='Right'>
-                            <button onClick={() => confirmAction("Êtes-vous sûr de vouloir afficher la solution ?", () => loadSolution(0))}>Solution</button>
+                            <button onClick={() => confirmAction("Êtes-vous sûr de vouloir afficher la solution ?", () => loadSolution(patternIndex))}>Solution</button>
                         </div>
                         <div className="Timer701">
                             {formatTime(time)}

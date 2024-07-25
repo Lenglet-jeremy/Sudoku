@@ -1,5 +1,3 @@
-// src/components/Grid.js
-
 import React, { useState, useEffect } from 'react';
 import './Grid.css';
 import '../Modal/CongratulationModal.css';
@@ -25,6 +23,7 @@ export default function Grid() {
     const [patternIndex, setPatternIndex] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isRulesModalOpen, setIsRulesModalOpen] = useState(false); // State for rules modal
+    const [isSolutionShown, setIsSolutionShown] = useState(false); // State for solution
 
     const { startTimer, stopTimer, resetTimer } = useTimer(setTime);
 
@@ -35,11 +34,11 @@ export default function Grid() {
     }, [patternIndex]);
 
     useEffect(() => {
-        if (isCompleted) {
+        if (isCompleted && !isSolutionShown) {
             stopTimer();
             setIsModalOpen(true);
         }
-    }, [isCompleted]);
+    }, [isCompleted, isSolutionShown]);
 
     const loadPattern = (index) => {
         const selectedPattern = patterns[index];
@@ -48,6 +47,7 @@ export default function Grid() {
         setInitialValues(selectedPattern);
         setHighlightedCells({});
         setIsCompleted(false);
+        setIsSolutionShown(false);  // Reset isSolutionShown
         resetTimer();
     };
 
@@ -56,6 +56,7 @@ export default function Grid() {
         setCellValues(selectedSolution);
         setHighlightedCells({});
         setIsCompleted(true);
+        setIsSolutionShown(true);  // Set isSolutionShown
         stopTimer();
     };
 

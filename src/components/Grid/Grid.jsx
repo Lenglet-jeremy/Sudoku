@@ -2,6 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import './Grid.css';
+import '../Modal/CongratulationModal.css';
+import CongratulationModal from '../Modal/CongratulationModal';
+import RulesModal from '../Modal/RulesModal'; // Import the RulesModal
 
 import { patterns } from "../Datas/Patterns";
 import { solutions } from "../Datas/Solutions";
@@ -20,6 +23,8 @@ export default function Grid() {
     const [time, setTime] = useState(0);
     const [isCompleted, setIsCompleted] = useState(false);
     const [patternIndex, setPatternIndex] = useState(0);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isRulesModalOpen, setIsRulesModalOpen] = useState(false); // State for rules modal
 
     const { startTimer, stopTimer, resetTimer } = useTimer(setTime);
 
@@ -32,6 +37,7 @@ export default function Grid() {
     useEffect(() => {
         if (isCompleted) {
             stopTimer();
+            setIsModalOpen(true);
         }
     }, [isCompleted]);
 
@@ -67,16 +73,22 @@ export default function Grid() {
             checkRules={checkRules}
             setCellValues={setCellValues}
             setHighlightedCells={setHighlightedCells}
-            checkCompletion={(values) => checkCompletion(values, setIsCompleted)}
+            checkCompletion={checkCompletion}
+            setIsCompleted={setIsCompleted}
         />
     );
 
     return (
         <div className="GridPage">
             <audio id="completion-sound" src="../../win.wav"></audio>
+            <CongratulationModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} />
+            <RulesModal isOpen={isRulesModalOpen} onRequestClose={() => setIsRulesModalOpen(false)} />
             <div className='SudokuArea'>
                 <div className='Title'>
-                    <h2>Sudoku</h2>
+                    <div className='TitleAndRules'>
+                        <h2>Sudoku</h2>
+                        <button className='InfoButton' onClick={() => setIsRulesModalOpen(true)}>?</button>
+                    </div>
                     <div className="Timer700">
                         {formatTime(time)}
                     </div>

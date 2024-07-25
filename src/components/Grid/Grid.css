@@ -10,7 +10,46 @@
     --button-hover-background-color: #666;
     --button-text-color: #fff;
 }
+/* src/components/Grid.css */
 
+/* Info button style */
+.InfoButton {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* Modal styles */
+.Modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    color: var(--text-color);
+    background-color: var(--background-color);
+    border: 1px solid var(--text-color);
+    padding: 20px;
+    border-radius: 10px;
+    outline: none;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.5);
+}
+
+.Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 1000;
+}
 
 @media (min-width: 701px) {
     .Timer700{
@@ -35,7 +74,7 @@
         color: var(--text-color);
         font-size: 2em;
         margin-bottom: 20px;
-        width: 508px;
+        padding-bottom: 10px;
         display: flex;
         justify-content: center;
         color: #ffffff;
@@ -142,6 +181,26 @@
 
     .GridControls button:hover {
         background-color: var(--button-hover-background-color);
+    }
+    
+
+    .TitleAndRules{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 508px;
+    }
+    
+    .InfoButton{
+        color: #ffffff;
+        padding: 0px;
+        margin: 10px;
+        height: 26px;
+        width: 26px;
+        border: 1px solid #FFFFFF;
+        border-radius: 13px;
+        font-size: 20px;
     }
 }
 
@@ -276,5 +335,24 @@
 
     .GridControls button:hover {
         background-color: var(--button-hover-background-color);
+    }
+    
+    .TitleAndRules{
+        display: flex;
+        flex-direction: row;
+        width: 508px;
+    }
+    
+    
+    .InfoButton{
+        color: #ffffff;
+        padding: 0px;
+        padding-right: 1px;
+        margin: 10px;
+        height: 20px;
+        width: 20px;
+        border: 1px solid #FFFFFF;
+        border-radius: 10px;
+        font-size: 15px;
     }
 }

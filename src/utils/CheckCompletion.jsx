@@ -1,11 +1,13 @@
 // src/utils/checkCompletion.js
 
-export const checkCompletion = (values, setIsCompleted) => {
+export const checkCompletion = (values, highlightedCells, setIsCompleted) => {
     const isComplete = Object.keys(values).length === 81 && !Object.values(values).includes('');
-    if (isComplete) {
+    const noHighlightedCells = Object.keys(highlightedCells).length === 0;
+
+    if (isComplete && noHighlightedCells) {
         const sound = document.getElementById("completion-sound");
         sound.play();
-        alert("Félicitation ! Vous avez gagné ! ")
+        // alert("Félicitations ! Vous avez gagné !");
     }
-    setIsCompleted(isComplete);
+    setIsCompleted(isComplete && noHighlightedCells);
 };

@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 
 Modal.setAppElement('#root');
 
+// Modal d'affichage de regle
 const RulesModal = ({ isOpen, onRequestClose }) => {
     return (
         <Modal

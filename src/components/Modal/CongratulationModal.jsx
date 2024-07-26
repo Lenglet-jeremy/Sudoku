@@ -1,8 +1,9 @@
 import React from 'react';
 import Modal from 'react-modal';
 
-Modal.setAppElement('#root'); // Set element root pour l'accessibilité
+Modal.setAppElement('#root');
 
+// Modal de félicitation lors de la completion de la grille
 const CongratulationModal = ({ isOpen, onRequestClose }) => {
     return (
         <Modal

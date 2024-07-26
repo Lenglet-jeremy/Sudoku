@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 
+// Gestion du timer
 export const useTimer = (setTime) => {
     const timerRef = useRef(null);
 

@@ -1,5 +1,4 @@
-// src/utils/generateCellStyle.js
-
+// Génére les styles des cellules
 export const generateCellStyle = (isHighlighted, isInitialValue) => ({
     backgroundColor: isHighlighted ? "var(--highlighted-cell-color)" : "#000000",
     color: isInitialValue ? "var(--initial-value-color)" : "var(--text-color)",

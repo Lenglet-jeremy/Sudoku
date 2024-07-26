@@ -22,17 +22,19 @@ export default function Grid() {
     const [isCompleted, setIsCompleted] = useState(false);
     const [patternIndex, setPatternIndex] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isRulesModalOpen, setIsRulesModalOpen] = useState(false); // State for rules modal
-    const [isSolutionShown, setIsSolutionShown] = useState(false); // State for solution
+    const [isRulesModalOpen, setIsRulesModalOpen] = useState(false);
+    const [isSolutionShown, setIsSolutionShown] = useState(false);
 
     const { startTimer, stopTimer, resetTimer } = useTimer(setTime);
 
+    // Si l'utilisateur change de difficulté
     useEffect(() => {
         loadPattern(patternIndex);
         startTimer();
         return () => stopTimer();
     }, [patternIndex]);
 
+    // Si l'utilisateur complete le tableau, ou s'il charge la solution
     useEffect(() => {
         if (isCompleted && !isSolutionShown) {
             stopTimer();
@@ -47,7 +49,7 @@ export default function Grid() {
         setInitialValues(selectedPattern);
         setHighlightedCells({});
         setIsCompleted(false);
-        setIsSolutionShown(false);  // Reset isSolutionShown
+        setIsSolutionShown(false);
         resetTimer();
     };
 
@@ -56,16 +58,19 @@ export default function Grid() {
         setCellValues(selectedSolution);
         setHighlightedCells({});
         setIsCompleted(true);
-        setIsSolutionShown(true);  // Set isSolutionShown
+        setIsSolutionShown(true);
         stopTimer();
     };
 
+    // Demande de confirmation à l'utilisateur avant de 
+    // changer de difficulté ou avant d'afficher la solution
     const confirmAction = (message, action) => {
         if (window.confirm(message)) {
             action();
         }
     };
 
+    // Charge la grille
     const grid = (
         <GenerateGrid
             cellValues={cellValues}
@@ -110,6 +115,7 @@ export default function Grid() {
                     </div>
                     <div className="GridBody">
                         <div className='GridHimself'>
+                            {/* Affiche la grille */}
                             {grid}
                         </div>
                     </div>

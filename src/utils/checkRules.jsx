@@ -1,5 +1,3 @@
-// src/utils/checkRules.jsx
-
 export const checkRules = (event, setCellValues, setHighlightedCells, checkCompletion, setIsCompleted) => {
     const userInput = event.target.value;
     const dataKey = event.target.getAttribute('data-key');

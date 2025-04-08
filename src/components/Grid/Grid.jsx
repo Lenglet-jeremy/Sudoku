@@ -1,8 +1,11 @@
+// ./src/components/Grid/Grid.jsx
+
+
 import React, { useState, useEffect } from 'react';
 import './Grid.css';
 import '../Modal/CongratulationModal.css';
 import CongratulationModal from '../Modal/CongratulationModal';
-import RulesModal from '../Modal/RulesModal'; // Import the RulesModal
+import RulesModal from '../Modal/RulesModal';
 
 import { patterns } from "../Datas/Patterns";
 import { solutions } from "../Datas/Solutions";
@@ -13,6 +16,7 @@ import { useTimer, formatTime } from '../../utils/TimerUtils';
 import { checkCompletion } from '../../utils/CheckCompletion';
 
 import GenerateGrid from '../GenerateGrid/GenerateGrid';
+import NumericKeyboard from '../NumericKeyboard/NumericKeyboard';
 
 export default function Grid() {
     const [cellValues, setCellValues] = useState({});
@@ -24,17 +28,16 @@ export default function Grid() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isRulesModalOpen, setIsRulesModalOpen] = useState(false);
     const [isSolutionShown, setIsSolutionShown] = useState(false);
+    const [selectedCell, setSelectedCell] = useState(null);
 
     const { startTimer, stopTimer, resetTimer } = useTimer(setTime);
 
-    // Si l'utilisateur change de difficulté
     useEffect(() => {
         loadPattern(patternIndex);
         startTimer();
         return () => stopTimer();
     }, [patternIndex]);
 
-    // Si l'utilisateur complete le tableau, ou s'il charge la solution
     useEffect(() => {
         if (isCompleted && !isSolutionShown) {
             stopTimer();
@@ -62,15 +65,12 @@ export default function Grid() {
         stopTimer();
     };
 
-    // Demande de confirmation à l'utilisateur avant de 
-    // changer de difficulté ou avant d'afficher la solution
     const confirmAction = (message, action) => {
         if (window.confirm(message)) {
             action();
         }
     };
 
-    // Charge la grille
     const grid = (
         <GenerateGrid
             cellValues={cellValues}
@@ -81,8 +81,37 @@ export default function Grid() {
             setHighlightedCells={setHighlightedCells}
             checkCompletion={checkCompletion}
             setIsCompleted={setIsCompleted}
+            setSelectedCell={setSelectedCell}
+            selectedCell={selectedCell}
         />
     );
+
+    const handleKeyPress = (key) => {
+        if (!selectedCell) return;
+    
+        const { row, col } = selectedCell;
+    
+        setCellValues((prevValues) => {
+            const newValues = { ...prevValues };
+            const cellKey = `${row}-${col}`;
+    
+            if (key === "Clear") {
+                newValues[cellKey] = "";
+            } else {
+                newValues[cellKey] = key;
+            }
+    
+            const isValid = checkRules(newValues);
+            setHighlightedCells(isValid ? {} : { [cellKey]: true });
+    
+            const completed = checkCompletion(newValues);
+            setIsCompleted(completed);
+    
+            return newValues;
+        });
+    };
+    
+    
 
     return (
         <div className="GridPage">
@@ -115,11 +144,13 @@ export default function Grid() {
                     </div>
                     <div className="GridBody">
                         <div className='GridHimself'>
-                            {/* Affiche la grille */}
                             {grid}
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
+                <NumericKeyboard onKeyPress={handleKeyPress} />
             </div>
         </div>
     );

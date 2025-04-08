@@ -1,5 +1,4 @@
 // ./src/components/GenerateGrid/GenerateGrid.jsx
-
 import React from 'react';
 import { generateCellStyle } from '../../utils/GenerateCellStyle';
 
@@ -41,6 +40,7 @@ const GenerateGrid = ({
                     data-key={dataKey}
                     style={generateCellStyle(isHighlighted, isInitialValue)}
                     onClick={() => setSelectedCell({ row, col })}
+                    onTouchStart={(e) => e.preventDefault()} // Empêche l'affichage du clavier sur mobile
                     onChange={isInitialValue ? undefined : (event) => {
                         const newValues = { ...cellValues, [dataKey]: event.target.value };
                         const isValid = checkRules(newValues);
@@ -49,9 +49,8 @@ const GenerateGrid = ({
                         setIsCompleted(completed);
                         setCellValues(newValues);
                     }}
-                    
-                                        value={cellValues[dataKey] || ''}
-                    readOnly={isInitialValue}
+                    value={cellValues[dataKey] || ''}
+                    readOnly={true} // Empêche l'édition directe
                 />
             );
         }
